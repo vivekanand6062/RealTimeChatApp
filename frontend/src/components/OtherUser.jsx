@@ -14,7 +14,14 @@ const OtherUser = ({ user }) => {
             <div onClick={() => selectedUserHandler(user)} className={` ${selectedUser?._id === user?._id ? 'bg-zinc-200 text-black' : 'text-white'} flex gap-2 hover:text-black items-center hover:bg-zinc-200 rounded p-2 cursor-pointer`}>
                 <div className={`avatar ${isOnline ? 'online' : '' }`}>
                     <div className='w-12 rounded-full'>
-                        <img src={user?.profilePhoto} alt="user-profile" />
+                        <img
+                            src={user?.profilePhoto}
+                            alt="user-profile"
+                            onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.fullName || 'User')}&background=random`;
+                            }}
+                        />
                     </div>
                 </div>
                 <div className='flex flex-col flex-1'>

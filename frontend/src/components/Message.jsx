@@ -13,7 +13,15 @@ const Message = ({message}) => {
         <div ref={scroll} className={`chat ${message?.senderId === authUser?._id ? 'chat-end' : 'chat-start'}`}>
             <div className="chat-image avatar">
                 <div className="w-10 rounded-full">
-                    <img alt="Tailwind CSS chat bubble component" src={message?.senderId === authUser?._id ? authUser?.profilePhoto  : selectedUser?.profilePhoto } />
+                    <img
+                        alt="user avatar"
+                        src={message?.senderId === authUser?._id ? authUser?.profilePhoto : selectedUser?.profilePhoto}
+                        onError={(e) => {
+                            e.target.onerror = null;
+                            const name = message?.senderId === authUser?._id ? authUser?.fullName : selectedUser?.fullName;
+                            e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'User')}&background=random`;
+                        }}
+                    />
                 </div>
             </div>
             <div className="chat-header">

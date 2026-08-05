@@ -27,7 +27,7 @@ const Login = () => {
       console.log(res);
       dispatch(setAuthUser(res.data));
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Login failed. Check server connection.");
       console.log(error);
     }
     setUser({

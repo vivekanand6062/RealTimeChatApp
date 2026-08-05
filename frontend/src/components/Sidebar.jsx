@@ -26,6 +26,7 @@ const Sidebar = () => {
             dispatch(setOtherUsers(null));
             dispatch(setSelectedUser(null));
         } catch (error) {
+            toast.error(error.response?.data?.message || "Logout failed");
             console.log(error);
         }
     }

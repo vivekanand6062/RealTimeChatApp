@@ -6,9 +6,22 @@ const app = express();
 
 const server = http.createServer(app);
 const io = new Server(server, {
-    cors:{
-        origin:['http://localhost:3000'],
-        methods:['GET', 'POST'],
+    cors: {
+        origin: (origin, callback) => {
+            if (!origin) return callback(null, true);
+            if (process.env.FRONTEND_URL) {
+                const allowed = process.env.FRONTEND_URL.split(',').map(url => url.trim().replace(/\/$/, ''));
+                if (allowed.includes(origin) || allowed.includes('*')) {
+                    return callback(null, true);
+                }
+            }
+            if (origin.startsWith('http://localhost') || origin.endsWith('.vercel.app')) {
+                return callback(null, true);
+            }
+            return callback(null, true);
+        },
+        methods: ['GET', 'POST'],
+        credentials: true
     },
 });
 

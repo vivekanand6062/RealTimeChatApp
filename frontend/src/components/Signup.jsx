@@ -31,7 +31,7 @@ const Signup = () => {
         toast.success(res.data.message);
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Signup failed. Check server connection.");
       console.log(error);
     }
     setUser({

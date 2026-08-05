@@ -1,4 +1,4 @@
-git commit -m "Initial commit"import mongoose from "mongoose";
+import mongoose from "mongoose";
 
 const conversationModel = new mongoose.Schema({
     participants:[{
